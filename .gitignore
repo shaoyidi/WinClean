@@ -1,0 +1,33 @@
+## .NET / Visual Studio
+bin/
+obj/
+publish/
+output/
+*.user
+*.suo
+*.cache
+*.vs/
+.vs/
+
+## Build outputs
+*.exe
+*.dll
+*.pdb
+!src/WinClean/Resources/app.ico
+
+## Logs
+logs/
+
+## IDE
+.idea/
+*.swp
+*~
+
+## OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+## User settings (runtime)
+AppPackages/
+BundleArtifacts/
