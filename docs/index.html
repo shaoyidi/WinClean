@@ -106,15 +106,44 @@
         section { position: relative; z-index: 1; }
 
         .hero {
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 120px 24px 80px;
+            padding: 120px 24px 60px;
         }
 
-        .hero-content { max-width: 800px; }
+        .hero-content { max-width: 900px; }
+
+        .hero-banner {
+            max-width: 960px;
+            margin: 0 auto 0;
+            padding: 0 24px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 24px 64px rgba(0,0,0,0.1);
+        }
+
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        .platform-badge svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.6;
+        }
 
         .badge {
             display: inline-block;
@@ -263,45 +292,126 @@
             line-height: 1.6;
         }
 
-        #screenshots { padding: 100px 0; }
+        #selling-points { padding: 60px 0 20px; }
 
-        .screenshots-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 48px;
-            flex-wrap: wrap;
+        .sp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
         }
 
-        .tab-btn {
-            padding: 10px 24px;
+        .sp-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: all 0.3s;
+        }
+
+        .sp-item:hover {
+            border-color: rgba(123,31,162,0.25);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .sp-icon {
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            width: 40px;
+            text-align: center;
+        }
+
+        .sp-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .sp-item p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        #screenshots { padding: 100px 0; }
+
+        .showcase {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .showcase-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .showcase-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 10px;
-            color: var(--text-secondary);
             cursor: pointer;
             font-size: 0.9rem;
             font-weight: 500;
             font-family: inherit;
+            color: var(--text-secondary);
             transition: all 0.2s;
         }
 
-        .tab-btn.active, .tab-btn:hover {
+        .showcase-tab:hover { border-color: var(--primary-light); color: var(--text); }
+
+        .showcase-tab.active {
             background: var(--primary);
             border-color: var(--primary);
             color: white;
         }
 
-        .screenshot-display {
-            max-width: 960px;
-            margin: 0 auto;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        .showcase-tab-icon { font-size: 1.1rem; }
+
+        .showcase-content {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 32px;
+            align-items: center;
         }
 
-        .screenshot-display img {
+        .showcase-desc-item {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .showcase-desc-item.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .showcase-desc-item h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .showcase-desc-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .showcase-image {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+        }
+
+        .showcase-image img {
             width: 100%;
             display: block;
         }
@@ -342,32 +452,58 @@
             text-align: center;
         }
 
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
         .download-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 60px 40px;
-            max-width: 640px;
-            margin: 0 auto;
+            padding: 36px 28px;
+            text-align: center;
         }
 
-        .download-card h2 {
-            font-size: 2rem;
-            margin-bottom: 16px;
+        .download-card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .download-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .download-card p {
             color: var(--text-secondary);
-            margin-bottom: 32px;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.6;
         }
 
-        .download-info {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            margin-top: 24px;
+        .download-meta {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .btn-block { width: 100%; justify-content: center; }
+
+        .download-footer {
+            margin-top: 32px;
             color: var(--text-secondary);
             font-size: 0.85rem;
+        }
+
+        .download-footer a {
+            color: var(--primary);
+            text-decoration: none;
         }
 
         footer {
@@ -439,8 +575,14 @@
             h1 { font-size: 2.2rem; }
             .hero-desc { font-size: 1rem; }
             .features-grid { grid-template-columns: 1fr; }
-            .download-card { padding: 40px 24px; }
+            .download-grid { grid-template-columns: 1fr; }
+            .download-card { padding: 32px 20px; }
             .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-banner { padding: 0 16px 60px; }
+            .showcase-content { grid-template-columns: 1fr; }
+            .showcase-desc { order: 2; }
+            .showcase-image { order: 1; }
+            .sp-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -455,7 +597,7 @@
             </a>
             <div class="nav-links">
                 <a href="#features" class="hide-mobile" data-en="Features" data-zh="功能">Features</a>
-                <a href="#screenshots" class="hide-mobile" data-en="Screenshots" data-zh="截图">Screenshots</a>
+                <a href="#screenshots" class="hide-mobile" data-en="Showcase" data-zh="功能展示">Showcase</a>
                 <a href="#download" data-en="Download" data-zh="下载">Download</a>
                 <a href="#sponsor" class="hide-mobile" data-en="Sponsor" data-zh="赞助">Sponsor</a>
                 <button class="lang-switch" onclick="toggleLang()">中文</button>
@@ -465,23 +607,65 @@
 
     <section class="hero">
         <div class="hero-content">
-            <div class="badge" data-en="Free &amp; Open Source" data-zh="免费 &amp; 开源">Free & Open Source</div>
+            <div class="badge" data-en="Free &amp; Open Source · For Windows" data-zh="免费 &amp; 开源 · Windows 专属">Free & Open Source · For Windows</div>
             <h1>
-                <span data-en="Clear Clutter," data-zh="净无冗余，">Clear Clutter,</span><br>
-                <span data-en="Claim Space." data-zh="释放空间。">Claim Space.</span>
+                <span data-en="Clear Clutter, Claim Space." data-zh="净无冗余，释放空间。">Clear Clutter, Claim Space.</span>
             </h1>
             <p class="hero-desc" data-en="The lightest Windows disk cleanup assistant at your fingertips. Easily discover large files devouring your space and analyze disk usage distribution with one click." data-zh="你身边最轻便的 Windows 磁盘清理助手。轻松发现吞噬空间的大型文件，一键分析磁盘空间分布！">
                 The lightest Windows disk cleanup assistant at your fingertips. Easily discover large files devouring your space and analyze disk usage distribution with one click.
             </p>
             <div class="hero-buttons">
-                <a href="https://github.com/shaoyidi/WinClean/releases" class="btn btn-primary">
+                <a href="https://github.com/shaoyidi/WinClean/releases/download/V1.0.0/WinClean_Setup_1.0.0.exe" class="btn btn-primary">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    <span data-en="Download" data-zh="立即下载">Download</span>
+                    <span data-en="Download Installer" data-zh="下载安装包">Download Installer</span>
                 </a>
-                <a href="https://github.com/shaoyidi/WinClean" class="btn btn-secondary">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
+                <a href="https://github.com/shaoyidi/WinClean/releases/download/V1.0.0/WinClean.exe" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span data-en="Download Portable" data-zh="下载绿色版">Download Portable</span>
                 </a>
+            </div>
+            <div class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+                <span>Windows 10 / 11 · x64</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="hero-banner">
+        <img id="hero-banner-img" src="" alt="WinClean Screenshot">
+    </div>
+
+    <section id="selling-points">
+        <div class="container">
+            <div class="sp-grid">
+                <div class="sp-item">
+                    <div class="sp-icon">🛡️</div>
+                    <div>
+                        <h4 data-en="Pure & Offline" data-zh="纯净单机">Pure & Offline</h4>
+                        <p data-en="No network required. All operations run locally on your machine. No data collection, no cloud dependency." data-zh="无需联网，所有操作在本地完成。不收集数据，不依赖云端。">No network required. All operations run locally on your machine. No data collection, no cloud dependency.</p>
+                    </div>
+                </div>
+                <div class="sp-item">
+                    <div class="sp-icon">✅</div>
+                    <div>
+                        <h4 data-en="Safe & Green" data-zh="安全绿色">Safe & Green</h4>
+                        <p data-en="No bundled software, no ads, no background processes. Clean uninstall with zero residual files." data-zh="无捆绑、无广告、无后台驻留。干净卸载，零残留。">No bundled software, no ads, no background processes. Clean uninstall with zero residual files.</p>
+                    </div>
+                </div>
+                <div class="sp-item">
+                    <div class="sp-icon">⚡</div>
+                    <div>
+                        <h4 data-en="Lightweight & Fast" data-zh="轻量极速">Lightweight & Fast</h4>
+                        <p data-en="Single file under 70MB. Launches instantly with minimal resource usage." data-zh="单文件不到 70MB，秒速启动，资源占用极低。">Single file under 70MB. Launches instantly with minimal resource usage.</p>
+                    </div>
+                </div>
+                <div class="sp-item">
+                    <div class="sp-icon">🔓</div>
+                    <div>
+                        <h4 data-en="Open Source" data-zh="开源透明">Open Source</h4>
+                        <p data-en="100% open source on GitHub. Every line of code is auditable. Community-driven development." data-zh="100% 在 GitHub 开源，每一行代码可审查。社区驱动开发。">100% open source on GitHub. Every line of code is auditable. Community-driven development.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -553,41 +737,100 @@
     <section id="screenshots">
         <div class="container">
             <div class="section-header">
-                <h2 data-en="Screenshots" data-zh="软件截图">Screenshots</h2>
-                <p data-en="Clean and modern interface designed with Material Design." data-zh="基于 Material Design 设计的简洁现代界面。">Clean and modern interface designed with Material Design.</p>
+                <h2 data-en="Feature Showcase" data-zh="功能展示">Feature Showcase</h2>
+                <p data-en="Explore the core capabilities of WinClean." data-zh="探索 WinClean 的核心功能。">Explore the core capabilities of WinClean.</p>
             </div>
-            <div class="screenshots-tabs">
-                <button class="tab-btn active" onclick="showScreenshot('cleaner')" data-en="System Cleaner" data-zh="系统清理">System Cleaner</button>
-                <button class="tab-btn" onclick="showScreenshot('largefiles')" data-en="Large Files" data-zh="大文件扫描">Large Files</button>
-                <button class="tab-btn" onclick="showScreenshot('duplicates')" data-en="Duplicates" data-zh="重复文件">Duplicates</button>
-                <button class="tab-btn" onclick="showScreenshot('diskanalysis')" data-en="Disk Analysis" data-zh="空间分析">Disk Analysis</button>
-                <button class="tab-btn" onclick="showScreenshot('settings')" data-en="Settings" data-zh="设置">Settings</button>
-            </div>
-            <div class="screenshot-display">
-                <img class="screenshot-img active" id="ss-cleaner" src="" alt="System Cleaner">
-                <img class="screenshot-img" id="ss-largefiles" src="" alt="Large File Scanner">
-                <img class="screenshot-img" id="ss-duplicates" src="" alt="Duplicate Detector">
-                <img class="screenshot-img" id="ss-diskanalysis" src="" alt="Disk Analysis">
-                <img class="screenshot-img" id="ss-settings" src="images/settings.png" alt="Settings">
+            <div class="showcase">
+                <div class="showcase-tabs">
+                    <button class="showcase-tab active" onclick="showShowcase(0, this)">
+                        <span class="showcase-tab-icon">🧹</span>
+                        <span class="showcase-tab-text" data-en="System Cleaner" data-zh="系统清理">System Cleaner</span>
+                    </button>
+                    <button class="showcase-tab" onclick="showShowcase(1, this)">
+                        <span class="showcase-tab-icon">🔍</span>
+                        <span class="showcase-tab-text" data-en="Large Files" data-zh="大文件扫描">Large Files</span>
+                    </button>
+                    <button class="showcase-tab" onclick="showShowcase(2, this)">
+                        <span class="showcase-tab-icon">📋</span>
+                        <span class="showcase-tab-text" data-en="Duplicates" data-zh="重复文件">Duplicates</span>
+                    </button>
+                    <button class="showcase-tab" onclick="showShowcase(3, this)">
+                        <span class="showcase-tab-icon">📊</span>
+                        <span class="showcase-tab-text" data-en="Disk Analysis" data-zh="空间分析">Disk Analysis</span>
+                    </button>
+                    <button class="showcase-tab" onclick="showShowcase(4, this)">
+                        <span class="showcase-tab-icon">⚙️</span>
+                        <span class="showcase-tab-text" data-en="Settings" data-zh="设置">Settings</span>
+                    </button>
+                </div>
+                <div class="showcase-content">
+                    <div class="showcase-desc">
+                        <div class="showcase-desc-item active" id="desc-0">
+                            <h3 data-en="System Junk Cleaner" data-zh="系统垃圾清理">System Junk Cleaner</h3>
+                            <p data-en="One-click scan and clean: Windows temp files, browser caches (Chrome, Edge, Firefox), Windows Update caches, system logs, and thumbnail caches. Typically frees 1-5 GB of disk space." data-zh="一键扫描清理：Windows 临时文件、浏览器缓存（Chrome、Edge、Firefox）、Windows 更新缓存、系统日志、缩略图缓存。通常可释放 1-5 GB 磁盘空间。">One-click scan and clean: Windows temp files, browser caches (Chrome, Edge, Firefox), Windows Update caches, system logs, and thumbnail caches. Typically frees 1-5 GB of disk space.</p>
+                        </div>
+                        <div class="showcase-desc-item" id="desc-1">
+                            <h3 data-en="Large File Scanner" data-zh="大文件扫描">Large File Scanner</h3>
+                            <p data-en="Scan any drive or folder for large files. Set custom minimum size thresholds (e.g. 500 MB). Sort results by size, type, or date. Real-time disk usage bar shows space distribution at a glance." data-zh="扫描任意磁盘或文件夹中的大文件。自定义最小文件大小阈值（如 500 MB）。按大小、类型或日期排序。底部实时磁盘使用率进度条，一目了然。">Scan any drive or folder for large files. Set custom minimum size thresholds (e.g. 500 MB). Sort results by size, type, or date. Real-time disk usage bar shows space distribution at a glance.</p>
+                        </div>
+                        <div class="showcase-desc-item" id="desc-2">
+                            <h3 data-en="Duplicate File Detector" data-zh="重复文件检测">Duplicate File Detector</h3>
+                            <p data-en="Multi-threaded SHA256 hash comparison finds true duplicates across multiple drives. Select folders or entire disks to scan. Auto-select duplicates for quick cleanup with one click." data-zh="多线程 SHA256 哈希对比，精确查找跨磁盘的真正重复文件。支持选择文件夹或整个磁盘扫描。一键自动选择重复项，快速清理。">Multi-threaded SHA256 hash comparison finds true duplicates across multiple drives. Select folders or entire disks to scan. Auto-select duplicates for quick cleanup with one click.</p>
+                        </div>
+                        <div class="showcase-desc-item" id="desc-3">
+                            <h3 data-en="Disk Space Analysis" data-zh="磁盘空间分析">Disk Space Analysis</h3>
+                            <p data-en="Interactive tree view shows folder sizes with visual bars. Drill down into any folder to understand exactly where disk space is being used. Click to open folders directly in Explorer." data-zh="交互式树形视图展示文件夹大小与可视化进度条。可逐层展开任意文件夹，精确了解磁盘空间去向。点击可直接在资源管理器中打开文件夹。">Interactive tree view shows folder sizes with visual bars. Drill down into any folder to understand exactly where disk space is being used. Click to open folders directly in Explorer.</p>
+                        </div>
+                        <div class="showcase-desc-item" id="desc-4">
+                            <h3 data-en="Customizable Settings" data-zh="个性化设置">Customizable Settings</h3>
+                            <p data-en="Switch between 6 languages instantly. Choose from 10+ accent colors. Toggle dark/light themes. Configure deletion behavior (recycle bin or permanent). All preferences auto-saved." data-zh="6 种语言即时切换。10+ 种主题色可选。深色/浅色主题切换。自定义删除行为（回收站或永久删除）。所有偏好自动保存。">Switch between 6 languages instantly. Choose from 10+ accent colors. Toggle dark/light themes. Configure deletion behavior (recycle bin or permanent). All preferences auto-saved.</p>
+                        </div>
+                    </div>
+                    <div class="showcase-image">
+                        <img class="screenshot-img active" id="ss-cleaner" src="" alt="System Cleaner">
+                        <img class="screenshot-img" id="ss-largefiles" src="" alt="Large File Scanner">
+                        <img class="screenshot-img" id="ss-duplicates" src="" alt="Duplicate Detector">
+                        <img class="screenshot-img" id="ss-diskanalysis" src="" alt="Disk Analysis">
+                        <img class="screenshot-img" id="ss-settings" src="images/settings.png" alt="Settings">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="download">
         <div class="container">
-            <div class="download-card">
-                <h2 data-en="Ready to Clean?" data-zh="准备好清理了吗？">Ready to Clean?</h2>
-                <p data-en="Download WinClean for free and reclaim your disk space today." data-zh="免费下载 WinClean，立即释放你的磁盘空间。">Download WinClean for free and reclaim your disk space today.</p>
-                <a href="https://github.com/shaoyidi/WinClean/releases" class="btn btn-primary">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    <span data-en="Download from GitHub" data-zh="从 GitHub 下载">Download from GitHub</span>
-                </a>
-                <div class="download-info">
-                    <span>Windows 10/11</span>
-                    <span>x64</span>
-                    <span data-en="Self-contained" data-zh="免安装运行时">Self-contained</span>
+            <div class="section-header">
+                <h2 data-en="Download" data-zh="下载">Download</h2>
+                <p data-en="Choose the version that suits you best." data-zh="选择最适合你的版本。">Choose the version that suits you best.</p>
+            </div>
+            <div class="download-grid">
+                <div class="download-card">
+                    <div class="download-card-icon">📦</div>
+                    <h3 data-en="Installer" data-zh="安装包">Installer</h3>
+                    <p data-en="Full installer with Start Menu and Desktop shortcuts. Recommended for most users." data-zh="完整安装包，含开始菜单和桌面快捷方式。推荐大多数用户使用。">Full installer with Start Menu and Desktop shortcuts. Recommended for most users.</p>
+                    <div class="download-meta">WinClean_Setup_1.0.0.exe · ~66 MB</div>
+                    <a href="https://github.com/shaoyidi/WinClean/releases/download/V1.0.0/WinClean_Setup_1.0.0.exe" class="btn btn-primary btn-block">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span data-en="Download Installer" data-zh="下载安装包">Download Installer</span>
+                    </a>
+                </div>
+                <div class="download-card">
+                    <div class="download-card-icon">💚</div>
+                    <h3 data-en="Portable" data-zh="绿色版">Portable</h3>
+                    <p data-en="Single executable, no installation required. Run directly from any folder or USB drive." data-zh="单文件免安装，直接运行。可放在 U 盘随身携带。">Single executable, no installation required. Run directly from any folder or USB drive.</p>
+                    <div class="download-meta">WinClean.exe · ~66 MB</div>
+                    <a href="https://github.com/shaoyidi/WinClean/releases/download/V1.0.0/WinClean.exe" class="btn btn-secondary btn-block">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span data-en="Download Portable" data-zh="下载绿色版">Download Portable</span>
+                    </a>
                 </div>
             </div>
+            <p class="download-footer">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="width:16px;height:16px;vertical-align:middle;opacity:0.5;margin-right:4px;"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+                <span data-en="Requires Windows 10/11 x64 · Self-contained, no .NET runtime needed" data-zh="需要 Windows 10/11 x64 · 自包含运行时，无需额外安装 .NET">Requires Windows 10/11 x64 · Self-contained, no .NET runtime needed</span>
+                · <a href="https://github.com/shaoyidi/WinClean/releases" data-en="All releases" data-zh="所有版本">All releases</a>
+            </p>
         </div>
     </section>
 
@@ -635,6 +878,7 @@
 
         function setScreenshotSrc() {
             const prefix = currentLang === 'zh' ? 'zh' : 'en';
+            document.getElementById('hero-banner-img').src = `images/${prefix}_cleaner.png`;
             document.getElementById('ss-cleaner').src = `images/${prefix}_cleaner.png`;
             document.getElementById('ss-largefiles').src = `images/${prefix}_largefiles.png`;
             document.getElementById('ss-duplicates').src = `images/${prefix}_duplicates.png`;
@@ -654,11 +898,14 @@
             setScreenshotSrc();
         }
 
-        function showScreenshot(name) {
+        const ssIds = ['ss-cleaner','ss-largefiles','ss-duplicates','ss-diskanalysis','ss-settings'];
+        function showShowcase(idx, el) {
             document.querySelectorAll('.screenshot-img').forEach(img => img.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('ss-' + name).classList.add('active');
-            event.target.classList.add('active');
+            document.querySelectorAll('.showcase-desc-item').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.showcase-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(ssIds[idx]).classList.add('active');
+            document.getElementById('desc-' + idx).classList.add('active');
+            el.classList.add('active');
         }
 
         document.querySelectorAll('a[href^="#"]').forEach(a => {
