@@ -560,12 +560,35 @@
             font-size: 0.85rem;
         }
 
+        .sponsor-wechat { cursor: pointer; }
+
+        .sponsor-hint {
+            color: var(--primary);
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
+        }
+
+        .sponsor-wechat.open .sponsor-hint { opacity: 0.5; }
+
+        .sponsor-qr-wrap {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, margin 0.35s ease;
+            margin-top: 0;
+        }
+
+        .sponsor-wechat.open .sponsor-qr-wrap {
+            max-height: 220px;
+            margin-top: 16px;
+        }
+
         .sponsor-qr {
             width: 180px;
             height: 180px;
-            margin: 16px auto 0;
             border-radius: 12px;
             border: 1px solid var(--border);
+            display: block;
+            margin: 0 auto;
         }
 
         .sponsor-badge {
@@ -847,11 +870,13 @@
                 <p data-en="If WinClean is helpful to you, consider supporting its development. Every contribution counts!" data-zh="如果 WinClean 对你有帮助，欢迎支持它的持续开发。每一份支持都是动力！">If WinClean is helpful to you, consider supporting its development. Every contribution counts!</p>
             </div>
             <div class="sponsor-grid">
-                <div class="sponsor-card">
+                <div class="sponsor-card sponsor-wechat" onclick="toggleQR(this)">
                     <div class="sponsor-icon" style="background:rgba(7,193,96,0.1);">💚</div>
                     <h3 data-en="WeChat Pay" data-zh="微信赞赏">WeChat Pay</h3>
-                    <p data-en="Scan to donate via WeChat" data-zh="扫码打赏，感谢支持">Scan to donate via WeChat</p>
-                    <img class="sponsor-qr" src="images/weixin_szm.png" alt="WeChat QR Code">
+                    <p class="sponsor-hint" data-en="Click to show QR code" data-zh="点击显示赞赏码">Click to show QR code</p>
+                    <div class="sponsor-qr-wrap">
+                        <img class="sponsor-qr" src="images/weixin_szm.png" alt="WeChat QR Code">
+                    </div>
                 </div>
                 <div class="sponsor-card disabled">
                     <div class="sponsor-icon" style="background:rgba(0,113,227,0.1);">🌐</div>
@@ -901,6 +926,19 @@
         }
 
         const ssIds = ['ss-cleaner','ss-largefiles','ss-duplicates','ss-diskanalysis','ss-settings'];
+        function toggleQR(card) {
+            card.classList.toggle('open');
+            const hint = card.querySelector('.sponsor-hint');
+            if (card.classList.contains('open')) {
+                hint.dataset.en = 'Click to hide QR code';
+                hint.dataset.zh = '点击收起赞赏码';
+            } else {
+                hint.dataset.en = 'Click to show QR code';
+                hint.dataset.zh = '点击显示赞赏码';
+            }
+            hint.textContent = currentLang === 'en' ? hint.dataset.en : hint.dataset.zh;
+        }
+
         function showShowcase(idx, el) {
             document.querySelectorAll('.screenshot-img').forEach(img => img.classList.remove('active'));
             document.querySelectorAll('.showcase-desc-item').forEach(d => d.classList.remove('active'));
