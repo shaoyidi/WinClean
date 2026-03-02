@@ -33,6 +33,6 @@ echo   Build complete!
 echo ========================================
 echo.
 echo   Portable: publish\WinClean.exe
-echo   MSI:      output\WinClean_Setup_1.0.0.msi
+echo   MSI:      output\WinClean_1.0.0.msi
 echo.
 pause
