@@ -115,21 +115,6 @@
 
         .hero-content { max-width: 900px; }
 
-        .hero-banner {
-            max-width: 960px;
-            margin: 0 auto 0;
-            padding: 0 24px 80px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-banner img {
-            width: 100%;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            box-shadow: 0 24px 64px rgba(0,0,0,0.1);
-        }
-
         .platform-badge {
             display: inline-flex;
             align-items: center;
@@ -411,13 +396,12 @@
             box-shadow: 0 16px 48px rgba(0,0,0,0.08);
         }
 
-        .showcase-image img {
+        .showcase-image img.screenshot-img {
             width: 100%;
-            display: block;
+            display: none;
         }
 
-        .screenshot-img { display: none; }
-        .screenshot-img.active { display: block; }
+        .showcase-image img.screenshot-img.active { display: block; }
 
         #highlights { padding: 100px 0; }
 
@@ -578,7 +562,6 @@
             .download-grid { grid-template-columns: 1fr; }
             .download-card { padding: 32px 20px; }
             .highlights-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero-banner { padding: 0 16px 60px; }
             .showcase-content { grid-template-columns: 1fr; }
             .showcase-desc { order: 2; }
             .showcase-image { order: 1; }
@@ -630,10 +613,6 @@
             </div>
         </div>
     </section>
-
-    <div class="hero-banner">
-        <img id="hero-banner-img" src="" alt="WinClean Screenshot">
-    </div>
 
     <section id="selling-points">
         <div class="container">
@@ -878,7 +857,6 @@
 
         function setScreenshotSrc() {
             const prefix = currentLang === 'zh' ? 'zh' : 'en';
-            document.getElementById('hero-banner-img').src = `images/${prefix}_cleaner.png`;
             document.getElementById('ss-cleaner').src = `images/${prefix}_cleaner.png`;
             document.getElementById('ss-largefiles').src = `images/${prefix}_largefiles.png`;
             document.getElementById('ss-duplicates').src = `images/${prefix}_duplicates.png`;
