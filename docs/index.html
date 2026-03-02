@@ -383,6 +383,55 @@
 
         footer a { color: var(--primary); text-decoration: none; }
 
+        #sponsor { padding: 100px 0; }
+
+        .sponsor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .sponsor-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .sponsor-card:hover {
+            border-color: rgba(123,31,162,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .sponsor-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.8rem;
+        }
+
+        .sponsor-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .sponsor-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
         .hidden { display: none !important; }
 
         @media (max-width: 768px) {
@@ -408,6 +457,7 @@
                 <a href="#features" class="hide-mobile" data-en="Features" data-zh="功能">Features</a>
                 <a href="#screenshots" class="hide-mobile" data-en="Screenshots" data-zh="截图">Screenshots</a>
                 <a href="#download" data-en="Download" data-zh="下载">Download</a>
+                <a href="#sponsor" class="hide-mobile" data-en="Sponsor" data-zh="赞助">Sponsor</a>
                 <button class="lang-switch" onclick="toggleLang()">中文</button>
             </div>
         </div>
@@ -537,6 +587,37 @@
                     <span>x64</span>
                     <span data-en="Self-contained" data-zh="免安装运行时">Self-contained</span>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sponsor">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-en="Support WinClean" data-zh="支持 WinClean">Support WinClean</h2>
+                <p data-en="If WinClean is helpful to you, consider supporting its development. Every contribution counts!" data-zh="如果 WinClean 对你有帮助，欢迎支持它的持续开发。每一份支持都是动力！">If WinClean is helpful to you, consider supporting its development. Every contribution counts!</p>
+            </div>
+            <div class="sponsor-grid">
+                <a href="https://ko-fi.com/shaoyidi" target="_blank" class="sponsor-card">
+                    <div class="sponsor-icon" style="background:rgba(255,94,91,0.1);">☕</div>
+                    <h3>Ko-fi</h3>
+                    <p data-en="Buy me a coffee" data-zh="请我喝杯咖啡">Buy me a coffee</p>
+                </a>
+                <a href="https://www.buymeacoffee.com/shaoyidi" target="_blank" class="sponsor-card">
+                    <div class="sponsor-icon" style="background:rgba(255,221,0,0.1);">🍺</div>
+                    <h3>Buy Me a Coffee</h3>
+                    <p data-en="Support via BMC" data-zh="通过 BMC 支持">Support via BMC</p>
+                </a>
+                <a href="https://afdian.com/a/shaoyidi" target="_blank" class="sponsor-card">
+                    <div class="sponsor-icon" style="background:rgba(123,31,162,0.1);">💜</div>
+                    <h3 data-en="Afdian" data-zh="爱发电">Afdian</h3>
+                    <p data-en="Support via Afdian (China)" data-zh="国内用户赞助通道">Support via Afdian (China)</p>
+                </a>
+                <a href="https://github.com/shaoyidi/WinClean" target="_blank" class="sponsor-card">
+                    <div class="sponsor-icon" style="background:rgba(255,165,0,0.1);">⭐</div>
+                    <h3>GitHub Star</h3>
+                    <p data-en="Star the repo — it's free!" data-zh="给仓库点 Star — 免费的支持！">Star the repo — it's free!</p>
+                </a>
             </div>
         </div>
     </section>
