@@ -17,25 +17,31 @@ if %errorlevel% neq 0 (
 echo [DONE] Published to publish\ directory
 echo.
 
-:: Step 2: Build installer (requires Inno Setup)
-where iscc >nul 2>&1
-if %errorlevel% equ 0 (
-    echo [2/2] Building installer...
-    iscc installer\setup.iss
-    if %errorlevel% neq 0 (
-        echo [ERROR] Installer build failed
-        pause
-        exit /b 1
-    )
-    echo [DONE] Installer created in output\ directory
-) else (
+:: Step 2: Build installer (search for ISCC.exe)
+set "ISCC="
+where iscc >nul 2>&1 && set "ISCC=iscc"
+if "%ISCC%"=="" if exist "D:\Program Files (x86)\Inno Setup 6\ISCC.exe" set "ISCC=D:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+if "%ISCC%"=="" if exist "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" set "ISCC=C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+if "%ISCC%"=="" if exist "C:\Program Files\Inno Setup 6\ISCC.exe" set "ISCC=C:\Program Files\Inno Setup 6\ISCC.exe"
+
+if "%ISCC%"=="" (
     echo [2/2] Inno Setup not found, skipping installer
     echo       To build installer, install Inno Setup: https://jrsoftware.org/isdownload.php
-    echo       Add ISCC.exe directory to PATH, then re-run this script
     echo.
     echo       You can use publish\WinClean.exe as a portable version
+    goto :done
 )
 
+echo [2/2] Building installer...
+"%ISCC%" installer\setup.iss
+if not exist output\WinClean_Setup_1.0.0.exe (
+    echo [ERROR] Installer build failed
+    pause
+    exit /b 1
+)
+echo [DONE] Installer created in output\ directory
+
+:done
 echo.
 echo ========================================
 echo   Build complete!

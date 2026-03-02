@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinClean - Windows Disk Cleanup Tool</title>
+    <meta name="description" content="WinClean - The lightest Windows disk cleanup assistant. Clean junk files, find large files, detect duplicates, and analyze disk space.">
+    <meta name="keywords" content="WinClean, disk cleanup, Windows, junk cleaner, large files, duplicate files, disk analyzer">
+    <link rel="icon" href="images/app.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7B1FA2;
+            --primary-light: #9C27B0;
+            --primary-dark: #4A148C;
+            --accent: #7B1FA2;
+            --bg: #fafbfd;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5f5f8;
+            --text: #1a1a2e;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --gradient: linear-gradient(135deg, #7B1FA2, #B44FD9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(123,31,162,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(250,251,253,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-logo img { width: 32px; height: 32px; }
+
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .lang-switch {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .lang-switch:hover { border-color: var(--primary-light); color: var(--text); }
+
+        section { position: relative; z-index: 1; }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+        }
+
+        .hero-content { max-width: 800px; }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(123,31,162,0.08);
+            border: 1px solid rgba(123,31,162,0.2);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 20px rgba(123,31,162,0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(123,31,162,0.35);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-light);
+            background: var(--bg-card-hover);
+        }
+
+        .btn svg { width: 20px; height: 20px; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #features { padding: 100px 0; }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(123,31,162,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(123,31,162,0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        #screenshots { padding: 100px 0; }
+
+        .screenshots-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .screenshot-display {
+            max-width: 960px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .screenshot-display img {
+            width: 100%;
+            display: block;
+        }
+
+        .screenshot-img { display: none; }
+        .screenshot-img.active { display: block; }
+
+        #highlights { padding: 100px 0; }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .highlight-item {
+            text-align: center;
+            padding: 32px 20px;
+        }
+
+        .highlight-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .highlight-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        #download {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .download-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .download-card h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .download-card p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .download-info {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 24px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a { color: var(--primary); text-decoration: none; }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 768px) {
+            .nav-links a.hide-mobile { display: none; }
+            h1 { font-size: 2.2rem; }
+            .hero-desc { font-size: 1rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .download-card { padding: 40px 24px; }
+            .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="images/app.ico" alt="WinClean">
+                <span>WinClean</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features" class="hide-mobile" data-en="Features" data-zh="功能">Features</a>
+                <a href="#screenshots" class="hide-mobile" data-en="Screenshots" data-zh="截图">Screenshots</a>
+                <a href="#download" data-en="Download" data-zh="下载">Download</a>
+                <button class="lang-switch" onclick="toggleLang()">中文</button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge" data-en="Free &amp; Open Source" data-zh="免费 &amp; 开源">Free & Open Source</div>
+            <h1>
+                <span data-en="Clear Clutter," data-zh="净无冗余，">Clear Clutter,</span><br>
+                <span data-en="Claim Space." data-zh="释放空间。">Claim Space.</span>
+            </h1>
+            <p class="hero-desc" data-en="The lightest Windows disk cleanup assistant at your fingertips. Easily discover large files devouring your space and analyze disk usage distribution with one click." data-zh="你身边最轻便的 Windows 磁盘清理助手。轻松发现吞噬空间的大型文件，一键分析磁盘空间分布！">
+                The lightest Windows disk cleanup assistant at your fingertips. Easily discover large files devouring your space and analyze disk usage distribution with one click.
+            </p>
+            <div class="hero-buttons">
+                <a href="https://github.com/shaoyidi/WinClean/releases" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span data-en="Download" data-zh="立即下载">Download</span>
+                </a>
+                <a href="https://github.com/shaoyidi/WinClean" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-en="Powerful Features" data-zh="强大功能">Powerful Features</h2>
+                <p data-en="Everything you need to keep your Windows system clean and fast." data-zh="让你的 Windows 系统保持清洁和快速所需的一切。">Everything you need to keep your Windows system clean and fast.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧹</div>
+                    <h3 data-en="System Junk Cleaner" data-zh="系统垃圾清理">System Junk Cleaner</h3>
+                    <p data-en="Scan and clean temporary files, browser caches, Windows update caches, system logs, and more. Free up gigabytes of disk space instantly." data-zh="扫描并清理临时文件、浏览器缓存、Windows 更新缓存、系统日志等。立即释放数 GB 磁盘空间。">Scan and clean temporary files, browser caches, Windows update caches, system logs, and more. Free up gigabytes of disk space instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 data-en="Large File Scanner" data-zh="大文件扫描">Large File Scanner</h3>
+                    <p data-en="Quickly find the largest files on any drive. Set custom size thresholds and sort by size, type, or date to identify space-hogging files." data-zh="快速查找任意磁盘上最大的文件。设置自定义大小阈值，按大小、类型或日期排序，找出占用空间的元凶。">Quickly find the largest files on any drive. Set custom size thresholds and sort by size, type, or date to identify space-hogging files.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3 data-en="Duplicate File Detector" data-zh="重复文件检测">Duplicate File Detector</h3>
+                    <p data-en="Find and remove duplicate files using SHA256 hash comparison. Multi-threaded scanning across multiple drives for maximum speed." data-zh="使用 SHA256 哈希比较查找并删除重复文件。多线程扫描多个磁盘，速度极快。">Find and remove duplicate files using SHA256 hash comparison. Multi-threaded scanning across multiple drives for maximum speed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 data-en="Disk Space Analysis" data-zh="磁盘空间分析">Disk Space Analysis</h3>
+                    <p data-en="Visualize disk usage with an interactive tree view. Drill down into folders to see exactly where your space is being used." data-zh="用交互式树形视图可视化磁盘占用。深入文件夹查看空间具体去向。">Visualize disk usage with an interactive tree view. Drill down into folders to see exactly where your space is being used.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 data-en="6 Languages" data-zh="6 种语言">6 Languages</h3>
+                    <p data-en="Available in Simplified Chinese, Traditional Chinese, English, Japanese, Korean, and German. Switch languages instantly in settings." data-zh="支持简体中文、繁体中文、英语、日语、韩语和德语。在设置中即时切换语言。">Available in Simplified Chinese, Traditional Chinese, English, Japanese, Korean, and German. Switch languages instantly in settings.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 data-en="Customizable Themes" data-zh="自定义主题">Customizable Themes</h3>
+                    <p data-en="Choose from 10+ theme colors and switch between dark and light modes. Your preferences are saved automatically." data-zh="10+ 种主题颜色可选，支持深色和浅色模式切换。偏好设置自动保存。">Choose from 10+ theme colors and switch between dark and light modes. Your preferences are saved automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="highlights">
+        <div class="container">
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <div class="highlight-number">6</div>
+                    <div class="highlight-label" data-en="Languages Supported" data-zh="支持语言">Languages Supported</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-number">10+</div>
+                    <div class="highlight-label" data-en="Theme Colors" data-zh="主题颜色">Theme Colors</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-number">&lt;70MB</div>
+                    <div class="highlight-label" data-en="Lightweight Package" data-zh="轻量安装包">Lightweight Package</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-number">.NET 8</div>
+                    <div class="highlight-label" data-en="Built with Modern Tech" data-zh="现代技术构建">Built with Modern Tech</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-en="Screenshots" data-zh="软件截图">Screenshots</h2>
+                <p data-en="Clean and modern interface designed with Material Design." data-zh="基于 Material Design 设计的简洁现代界面。">Clean and modern interface designed with Material Design.</p>
+            </div>
+            <div class="screenshots-tabs">
+                <button class="tab-btn active" onclick="showScreenshot('cleaner')" data-en="System Cleaner" data-zh="系统清理">System Cleaner</button>
+                <button class="tab-btn" onclick="showScreenshot('largefiles')" data-en="Large Files" data-zh="大文件扫描">Large Files</button>
+                <button class="tab-btn" onclick="showScreenshot('duplicates')" data-en="Duplicates" data-zh="重复文件">Duplicates</button>
+                <button class="tab-btn" onclick="showScreenshot('diskanalysis')" data-en="Disk Analysis" data-zh="空间分析">Disk Analysis</button>
+                <button class="tab-btn" onclick="showScreenshot('settings')" data-en="Settings" data-zh="设置">Settings</button>
+            </div>
+            <div class="screenshot-display">
+                <img class="screenshot-img active" id="ss-cleaner" src="" alt="System Cleaner">
+                <img class="screenshot-img" id="ss-largefiles" src="" alt="Large File Scanner">
+                <img class="screenshot-img" id="ss-duplicates" src="" alt="Duplicate Detector">
+                <img class="screenshot-img" id="ss-diskanalysis" src="" alt="Disk Analysis">
+                <img class="screenshot-img" id="ss-settings" src="images/settings.png" alt="Settings">
+            </div>
+        </div>
+    </section>
+
+    <section id="download">
+        <div class="container">
+            <div class="download-card">
+                <h2 data-en="Ready to Clean?" data-zh="准备好清理了吗？">Ready to Clean?</h2>
+                <p data-en="Download WinClean for free and reclaim your disk space today." data-zh="免费下载 WinClean，立即释放你的磁盘空间。">Download WinClean for free and reclaim your disk space today.</p>
+                <a href="https://github.com/shaoyidi/WinClean/releases" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span data-en="Download from GitHub" data-zh="从 GitHub 下载">Download from GitHub</span>
+                </a>
+                <div class="download-info">
+                    <span>Windows 10/11</span>
+                    <span>x64</span>
+                    <span data-en="Self-contained" data-zh="免安装运行时">Self-contained</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 WinClean. <span data-en="Built with" data-zh="使用">Built with</span> .NET 8 + WPF.
+                <a href="https://github.com/shaoyidi/WinClean">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+
+        function setScreenshotSrc() {
+            const prefix = currentLang === 'zh' ? 'zh' : 'en';
+            document.getElementById('ss-cleaner').src = `images/${prefix}_cleaner.png`;
+            document.getElementById('ss-largefiles').src = `images/${prefix}_largefiles.png`;
+            document.getElementById('ss-duplicates').src = `images/${prefix}_duplicates.png`;
+            document.getElementById('ss-diskanalysis').src = `images/${prefix}_diskanalysis.png`;
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            const btn = document.querySelector('.lang-switch');
+            btn.textContent = currentLang === 'en' ? '中文' : 'English';
+            document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = currentLang === 'en' ? el.dataset.en : el.dataset.zh;
+            });
+
+            setScreenshotSrc();
+        }
+
+        function showScreenshot(name) {
+            document.querySelectorAll('.screenshot-img').forEach(img => img.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('ss-' + name).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        setScreenshotSrc();
+
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang.startsWith('zh')) {
+            toggleLang();
+        }
+    </script>
+</body>
+</html>

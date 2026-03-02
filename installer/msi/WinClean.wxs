@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Package
+    Name="WinClean"
+    Version="1.0.0.0"
+    Manufacturer="WinClean"
+    UpgradeCode="6B29FC40-CA47-1067-B31D-00DD010662DA"
+    Scope="perMachine"
+    Language="1033">
+
+    <MajorUpgrade
+      DowngradeErrorMessage="A newer version of WinClean is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="AppIcon" SourceFile="d:\WinClean\src\WinClean\Resources\app.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/shaoyidi/WinClean" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="WinClean">
+        <Component Id="MainExecutable" Guid="A7B2C3D4-E5F6-7890-A1B2-C3D4E5F67890">
+          <File Id="WinCleanExe"
+                Source="d:\WinClean\publish\WinClean.exe"
+                KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="WinClean">
+        <Component Id="StartMenuShortcut" Guid="B8C3D4E5-F6A7-8901-B2C3-D4E5F6A78901">
+          <Shortcut Id="AppShortcut"
+                    Name="WinClean"
+                    Description="Windows Disk Cleanup Assistant"
+                    Target="[INSTALLFOLDER]WinClean.exe"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="AppIcon" />
+          <RemoveFolder Id="CleanupProgramsFolder" On="uninstall" />
+          <RegistryValue Root="HKCU"
+                         Key="Software\WinClean"
+                         Name="StartMenuShortcut"
+                         Type="integer"
+                         Value="1"
+                         KeyPath="yes" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="C9D4E5F6-A7B8-9012-C3D4-E5F6A7B89012">
+        <Shortcut Id="DesktopAppShortcut"
+                  Name="WinClean"
+                  Description="Windows Disk Cleanup Assistant"
+                  Target="[INSTALLFOLDER]WinClean.exe"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="AppIcon" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\WinClean"
+                       Name="DesktopShortcut"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </StandardDirectory>
+
+    <Feature Id="Complete" Title="WinClean" Level="1">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="StartMenuShortcut" />
+      <ComponentRef Id="DesktopShortcut" />
+    </Feature>
+
+  </Package>
+
+</Wix>

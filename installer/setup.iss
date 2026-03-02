@@ -2,7 +2,7 @@
 AppName=WinClean
 AppVersion=1.0.0
 AppPublisher=WinClean
-AppPublisherURL=https://github.com/winclean
+AppPublisherURL=https://github.com/shaoyidi/WinClean
 DefaultDirName={autopf}\WinClean
 DefaultGroupName=WinClean
 OutputDir=..\output
@@ -20,7 +20,10 @@ DisableProgramGroupPage=yes
 MinVersion=10.0
 
 [Languages]
-Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
+Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "korean"; MessagesFile: "compiler:Languages\Korean.isl"
+Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -30,8 +33,8 @@ Source: "..\publish\WinClean.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\WinClean"; Filename: "{app}\WinClean.exe"
-Name: "{group}\卸载 WinClean"; Filename: "{uninstallexe}"
+Name: "{group}\Uninstall WinClean"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\WinClean"; Filename: "{app}\WinClean.exe"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\WinClean.exe"; Description: "启动 WinClean"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\WinClean.exe"; Description: "Launch WinClean"; Flags: nowait postinstall skipifsilent
