@@ -106,20 +106,25 @@ build-msi.bat
 
 ## 💜 Sponsor
 
-If WinClean is helpful to you, consider buying me a coffee! Your support motivates continued development.
+If WinClean is helpful to you, consider supporting its development! / 如果 WinClean 对你有帮助，欢迎支持！
 
-如果 WinClean 对你有帮助，欢迎请我喝杯咖啡！你的支持是我持续开发的动力。
+### 🇨🇳 微信赞赏
 
 <p align="center">
-  <a href="https://ko-fi.com/shaoyidi"><img src="https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
-  <a href="https://www.buymeacoffee.com/shaoyidi"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  <a href="https://afdian.com/a/shaoyidi"><img src="https://img.shields.io/badge/爱发电-赞助-purple?style=for-the-badge" alt="爱发电"></a>
+  <img src="docs/images/weixin_szm.png" alt="WeChat QR Code" width="200">
 </p>
 
-You can also support by:
-- ⭐ **Star** this repository
-- 📢 **Share** WinClean with friends
-- 🐛 **Report** bugs or suggest features via [Issues](https://github.com/shaoyidi/WinClean/issues)
+### 🌐 International Payment \[Coming Soon\]
+
+> International payment channel is under preparation. Stay tuned!
+>
+> 海外支付渠道正在筹备中，敬请期待！
+
+### Other ways to support / 其他支持方式
+
+- ⭐ **Star** this repository / 给仓库点 Star
+- 📢 **Share** WinClean with friends / 分享给朋友
+- 🐛 **Report** bugs or suggest features via [Issues](https://github.com/shaoyidi/WinClean/issues) / 提交 Bug 或建议
 
 ## 📄 License
 

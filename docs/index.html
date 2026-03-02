@@ -508,10 +508,11 @@
 
         .sponsor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            max-width: 960px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
             margin: 0 auto;
+            align-items: start;
         }
 
         .sponsor-card {
@@ -523,12 +524,18 @@
             text-decoration: none;
             color: var(--text);
             transition: all 0.3s;
+            display: block;
         }
 
         .sponsor-card:hover {
             border-color: rgba(123,31,162,0.3);
             transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .sponsor-card.disabled {
+            opacity: 0.55;
+            pointer-events: none;
         }
 
         .sponsor-icon {
@@ -553,6 +560,24 @@
             font-size: 0.85rem;
         }
 
+        .sponsor-qr {
+            width: 180px;
+            height: 180px;
+            margin: 16px auto 0;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .sponsor-badge {
+            display: inline-block;
+            background: var(--border);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
         .hidden { display: none !important; }
 
         @media (max-width: 768px) {
@@ -567,6 +592,7 @@
             .showcase-desc { order: 2; }
             .showcase-image { order: 1; }
             .sp-grid { grid-template-columns: 1fr; }
+            .sponsor-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -821,21 +847,18 @@
                 <p data-en="If WinClean is helpful to you, consider supporting its development. Every contribution counts!" data-zh="如果 WinClean 对你有帮助，欢迎支持它的持续开发。每一份支持都是动力！">If WinClean is helpful to you, consider supporting its development. Every contribution counts!</p>
             </div>
             <div class="sponsor-grid">
-                <a href="https://ko-fi.com/shaoyidi" target="_blank" class="sponsor-card">
-                    <div class="sponsor-icon" style="background:rgba(255,94,91,0.1);">☕</div>
-                    <h3>Ko-fi</h3>
-                    <p data-en="Buy me a coffee" data-zh="请我喝杯咖啡">Buy me a coffee</p>
-                </a>
-                <a href="https://www.buymeacoffee.com/shaoyidi" target="_blank" class="sponsor-card">
-                    <div class="sponsor-icon" style="background:rgba(255,221,0,0.1);">🍺</div>
-                    <h3>Buy Me a Coffee</h3>
-                    <p data-en="Support via BMC" data-zh="通过 BMC 支持">Support via BMC</p>
-                </a>
-                <a href="https://afdian.com/a/shaoyidi" target="_blank" class="sponsor-card">
-                    <div class="sponsor-icon" style="background:rgba(123,31,162,0.1);">💜</div>
-                    <h3 data-en="Afdian" data-zh="爱发电">Afdian</h3>
-                    <p data-en="Support via Afdian (China)" data-zh="国内用户赞助通道">Support via Afdian (China)</p>
-                </a>
+                <div class="sponsor-card">
+                    <div class="sponsor-icon" style="background:rgba(7,193,96,0.1);">💚</div>
+                    <h3 data-en="WeChat Pay" data-zh="微信赞赏">WeChat Pay</h3>
+                    <p data-en="Scan to donate via WeChat" data-zh="扫码打赏，感谢支持">Scan to donate via WeChat</p>
+                    <img class="sponsor-qr" src="images/weixin_szm.png" alt="WeChat QR Code">
+                </div>
+                <div class="sponsor-card disabled">
+                    <div class="sponsor-icon" style="background:rgba(0,113,227,0.1);">🌐</div>
+                    <h3 data-en="International" data-zh="海外渠道">International</h3>
+                    <p data-en="International payment coming soon" data-zh="海外支付渠道即将上线">International payment coming soon</p>
+                    <span class="sponsor-badge" data-en="Coming Soon" data-zh="待上线">Coming Soon</span>
+                </div>
                 <a href="https://github.com/shaoyidi/WinClean" target="_blank" class="sponsor-card">
                     <div class="sponsor-icon" style="background:rgba(255,165,0,0.1);">⭐</div>
                     <h3>GitHub Star</h3>
