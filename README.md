@@ -10,11 +10,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/shaoyidi/WinClean/releases"><img src="https://img.shields.io/github/v/release/shaoyidi/WinClean?style=flat-square&color=7B1FA2" alt="Release"></a>
+  <a href="https://github.com/shaoyidi/WinCleanCat/releases"><img src="https://img.shields.io/github/v/release/shaoyidi/WinCleanCat?style=flat-square&color=7B1FA2" alt="Release"></a>
   <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-blue?style=flat-square" alt="Platform">
   <img src="https://img.shields.io/badge/.NET-8.0-purple?style=flat-square" alt=".NET">
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License">
-  <img src="https://img.shields.io/github/downloads/shaoyidi/WinClean/total?style=flat-square&color=orange" alt="Downloads">
+  <img src="https://img.shields.io/github/downloads/shaoyidi/WinCleanCat/total?style=flat-square&color=orange" alt="Downloads">
 </p>
 
 <p align="center">
@@ -72,7 +72,7 @@
 
 ## 📥 Download
 
-Download the latest version from [GitHub Releases](https://github.com/shaoyidi/WinClean/releases).
+Download the latest version from [GitHub Releases](https://github.com/shaoyidi/WinCleanCat/releases).
 
 - **Installer**: `WinClean_Setup_x.x.x.exe` — Full installer with shortcuts
 - **Portable**: `WinClean.exe` — No installation required
@@ -83,7 +83,7 @@ Download the latest version from [GitHub Releases](https://github.com/shaoyidi/W
 
 ```bash
 # Clone the repository
-git clone https://github.com/shaoyidi/WinClean.git
+git clone https://github.com/shaoyidi/WinCleanCat.git
 cd WinClean
 
 # Run directly
@@ -124,7 +124,7 @@ If WinClean is helpful to you, consider supporting its development! / 如果 Win
 
 - ⭐ **Star** this repository / 给仓库点 Star
 - 📢 **Share** WinClean with friends / 分享给朋友
-- 🐛 **Report** bugs or suggest features via [Issues](https://github.com/shaoyidi/WinClean/issues) / 提交 Bug 或建议
+- 🐛 **Report** bugs or suggest features via [Issues](https://github.com/shaoyidi/WinCleanCat/issues) / 提交 Bug 或建议
 
 ## 📄 License
 

@@ -16,7 +16,7 @@
 
     <Icon Id="AppIcon" SourceFile="d:\WinClean\src\WinClean\Resources\app.ico" />
     <Property Id="ARPPRODUCTICON" Value="AppIcon" />
-    <Property Id="ARPHELPLINK" Value="https://github.com/shaoyidi/WinClean" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/shaoyidi/WinCleanCat" />
 
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER" Name="WinClean">
